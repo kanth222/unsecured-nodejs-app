@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: demo-nodejs-app-unsecured
+  name: demo-nodejs-app-unsecured
+  namespace: $APP_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: demo-nodejs-app-unsecured
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-nodejs-app-unsecured
+    spec:
+      serviceAccountName: demo-nodejs-app-unsecured
+      containers:
+        - name: demo-nodejs-app-unsecured
+          imagePullPolicy: Always
+          image: kanth22/unsecured-nodejs-app:1.7
+          env:
+            - name: DB_USER
+              value: root
+            - name: DB_HOST
+              value: 172.16.11.53
+            - name: DB_PASSWORD
+              value: demo-db
+            - name: DB_NAME
+              value: nodedemo
+            - name: DB_PORT
+              value: 32505
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-nodejs-app-summon-sidecar
+  namespace: $APP_NAMESPACE
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 32086
+  selector:
+    app: demo-nodejs-app-summon-sidecar
+---
