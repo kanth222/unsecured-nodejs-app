@@ -43,7 +43,7 @@ spec:
   type: NodePort
   ports:
     - port: 8080
-      nodePort: 32086
+      nodePort: 32077
   selector:
     app: demo-nodejs-app-unsecured
 ---
