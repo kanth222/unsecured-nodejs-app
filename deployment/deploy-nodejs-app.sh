@@ -17,8 +17,8 @@ kubectl config set-context --current --namespace="$APP_NAMESPACE"
 #   --from-literal CONJUR_JWT_TOKEN_PATH="/var/run/secrets/kubernetes.io/serviceaccount/token" \
 #   --from-file "CONJUR_SSL_CERTIFICATE=$CONJUR_CERT_FILE"
 
-# kubectl delete serviceaccount demo-app-summon-sidecar-sa --ignore-not-found=true
-# kubectl create serviceaccount demo-app-summon-sidecar-sa
+kubectl delete serviceaccount demo-nodejs-app-unsecured --ignore-not-found=true
+kubectl create serviceaccount demo-nodejs-app-unsecured
 
 # SUMMON CONFIGMAP
 kubectl delete configmap summon-config-sidecar --ignore-not-found=true
