@@ -27,10 +27,10 @@ kubectl delete configmap summon-config-sidecar --ignore-not-found=true
 # rm secrets.yml
 
 # DEPLOYMENT
-envsubst < summon-k8-deployment.yaml | kubectl replace --force -f -
-if ! kubectl wait deployment demo-nodejs-app-summon-sidecar --for condition=Available=True --timeout=90s
+envsubst < unsecured-k8-deployment.yaml | kubectl replace --force -f -
+if ! kubectl wait deployment demo-nodejs-app-unsecured --for condition=Available=True --timeout=90s
   then exit 1
 fi
 
-kubectl get services demo-nodejs-app-summon-sidecar
+#kubectl get services demo-nodejs-app-summon-sidecar
 kubectl get pods
